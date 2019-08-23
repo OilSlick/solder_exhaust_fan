@@ -56,11 +56,11 @@ void setup() {
 }
 
 void loop() {
-  if ( digitalRead(lboPin) == LOW ) 
+  /*if ( digitalRead(lboPin) == LOW ) 
   {
     digitalWrite(enPin,LOW);           //Power down Neopixel ring
     BlinkLED();                        //Signal impending doom
-  }
+  }*/
   
   /*int rawReading = analogRead(LiPoPin);
   Serial.print("rawReading: "); Serial.println(rawReading);
@@ -89,7 +89,6 @@ void loop() {
       lastDebounceTime = millis();
     } 
     
- 
     //if the LED button has been pressed, toggle the Neopixel ring
      if ( (LEDbuttonState == HIGH) && (LEDflag == 0) ) {
       digitalWrite(enPin,HIGH);           //Power up 5v rail
@@ -98,6 +97,8 @@ void loop() {
       LEDflag = 1;
       lastDebounceTime = millis();
     }
+
+    /*  Disable higher LED power levels—shit was annoying
     else if ( (LEDbuttonState == HIGH) && (LEDflag == 1) ) {
  
       ActivateLED(127); //33 = 1/8, 63 = 1/4, 127 = 1/2, 255 = full
@@ -109,12 +110,15 @@ void loop() {
       ActivateLED(255); //33 = 1/8, 63 = 1/4, 127 = 1/2, 255 = full
       LEDflag = 3;
       lastDebounceTime = millis();
-    }
-    else if ( (LEDbuttonState == HIGH) && (LEDflag == 3) ) {
+    }*/
+    else if ( (LEDbuttonState == HIGH) && (LEDflag == 1) ) {
  
       ActivateLED(0); //33 = 1/8, 63 = 1/4, 127 = 1/2, 255 = full 
       LEDflag = 0;
       lastDebounceTime = millis();
+    }
+    if ( LEDflag == 0 && FANflag == 0 )
+    {
       digitalWrite(enPin,LOW);            //turn off power boost (5v) 
     }
     Narcoleptic.delay(100);
