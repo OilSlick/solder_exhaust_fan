@@ -1,5 +1,5 @@
 // Fill the dots one after the other with a color
-void colorWipe(uint32_t c, uint8_t wait) {
+/*void colorWipe(uint32_t c, uint8_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -17,10 +17,10 @@ void rainbow(uint8_t wait) {
     strip.show();
     delay(wait);
   }
-}
+}*/
 
 // Slightly different, this makes the rainbow equally distributed throughout
-void rainbowCycle(uint8_t wait) {
+/*void rainbowCycle(uint8_t wait) {
   uint16_t i, j;
 
   for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
@@ -30,10 +30,10 @@ void rainbowCycle(uint8_t wait) {
     strip.show();
     delay(wait);
   }
-}
+}*/
 
 //Theatre-style crawling lights.
-void theaterChase(uint32_t c, uint8_t wait) {
+/*void theaterChase(uint32_t c, uint8_t wait) {
   for (int j=0; j<10; j++) {  //do 10 cycles of chasing
     for (int q=0; q < 3; q++) {
       for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
@@ -48,10 +48,10 @@ void theaterChase(uint32_t c, uint8_t wait) {
       }
     }
   }
-}
+}*/
 
 //Theatre-style crawling lights with rainbow effect
-void theaterChaseRainbow(uint8_t wait) {
+/*void theaterChaseRainbow(uint8_t wait) {
   for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
     for (int q=0; q < 3; q++) {
       for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
@@ -66,8 +66,9 @@ void theaterChaseRainbow(uint8_t wait) {
       }
     }
   }
-}
+}*/
 
+/*
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
 uint32_t Wheel(byte WheelPos) {
@@ -81,9 +82,9 @@ uint32_t Wheel(byte WheelPos) {
   }
   WheelPos -= 170;
   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-}
+} */
 
-void fizzle()
+/*void fizzle()
 {
   int neodelay = 50;
   strip.setPixelColor(14, 63, 0, 63);
@@ -138,9 +139,9 @@ void fizzle()
   delay(neodelay);
   strip.show();
   delay(1000);
-}
+}*/
 
-void neorandom()
+/*void neorandom()
 {
   randomSeed(analogRead(A0));   
   
@@ -154,5 +155,4 @@ void neorandom()
     i++;
   }
   delay(1000);
-}
-
+}*/
