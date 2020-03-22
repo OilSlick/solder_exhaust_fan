@@ -61,16 +61,6 @@ void setup() {
   }
   power_spi_disable();
   power_twi_disable();
-  /*if ( Serial ) 
-  {
-    float measuredvbat = analogRead(LiPoPin);
-    measuredvbat *= 2;    // we divided by 2, so multiply back
-    measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
-    measuredvbat /= 1024; // convert to voltage
-    Serial.print("vbat: ");
-    Serial.println(measuredvbat);
-    Serial.println("Ready");
-  } */   
 }
 
 void loop() {
@@ -91,9 +81,9 @@ void loop() {
   FANbuttonState = digitalRead(FANButtonPin);        
  
   //filter out any noise by setting a time buffer
-  if ( (millis() - lastDebounceTime) > debounceDelay) {
-
-  //if the FAN button has been pressed, turn on fan
+  if ( (millis() - lastDebounceTime) > debounceDelay) 
+  {
+    //if the FAN button has been pressed, turn on fan
      if ( (FANbuttonState == HIGH) && (FANflag == 0) ) {
       if ( RailOn == 0 ) 
       {
@@ -125,8 +115,10 @@ void loop() {
     }
     else if ( (LEDbuttonState == HIGH) && (LEDflag == 1) ) {
       WhiteLight(0); //33 = 1/8, 63 = 1/4, 127 = 1/2, 255 = full 
+      showBattLevel();
       LEDflag = 0;
       lastDebounceTime = millis();
+      pixels->clear();                     // Set all pixel colors to 'off'
     }
     if ( LEDflag == 0 && FANflag == 0 )
     {
@@ -136,12 +128,46 @@ void loop() {
     Narcoleptic.delay(100);
   }
 }
-/*void ActivateLED(int LEDPower)
-{
-  colorWipe(strip.Color(LEDPower, LEDPower, LEDPower), 50); 
-}*/
 void showBattLevel()
 {
+    float measuredvbat = analogRead(LiPoPin);
+    measuredvbat *= 2;    // we divided by 2, so multiply back
+    measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
+    measuredvbat /= 1024; // convert to voltage
+    if ( measuredvbat > 3.1 )
+    {
+        for(int i=0; i < 4; i++) 
+        { 
+          pixels->setPixelColor(i, pixels->Color(0, 33, 0));
+          pixels->show();
+          delay(50);
+        }
+        delay(2000);
+        for(int i=0; i < 4; i++) 
+        { 
+          pixels->setPixelColor(i, pixels->Color(0, 0, 0));
+          pixels->show();
+          delay(50);
+        }
+        pixels->clear();                     // Set all pixel colors to 'off' 
+    }
+    else 
+    {
+        for(int i=0; i < 4; i++) 
+        { 
+          pixels->setPixelColor(i, pixels->Color(33, 0, 0));
+          pixels->show();
+          delay(50);
+        }
+        delay(2000);
+        for(int i=0; i < 4; i++) 
+        { 
+          pixels->setPixelColor(i, pixels->Color(0, 0, 0));
+          pixels->show();   
+          delay(50);
+        }
+        pixels->clear();                     // Set all pixel colors to 'off' 
+    }
   //pixels.setPixelColor(4, pixels.Color(0, 150, 0));  //Green
   //pixels.show();   // Send the updated pixel colors to the hardware.
 }
